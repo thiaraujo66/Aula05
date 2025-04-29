@@ -1,7 +1,14 @@
+using Aula05.Application.Contratos;
+using Aula05.Application.Service;
+using Aula05.Infraestrutura.ExternalServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient<ClienteHttpClient>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 var app = builder.Build();
 
