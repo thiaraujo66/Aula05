@@ -13,6 +13,11 @@ namespace Aula05.Application.Service
             _clienteHttpClient = clienteHttpClient;
         }
 
+        public Task AtualizaCliente(Cliente cliente)
+        {
+            return _clienteHttpClient.AtualizarClienteAsync(cliente); 
+        }
+
         public async Task<List<Cliente>> ObterClientesAsync()
         {
             return await _clienteHttpClient.BuscarClientesAsync();

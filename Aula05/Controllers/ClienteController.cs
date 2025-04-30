@@ -33,9 +33,45 @@ namespace Aula05.Controllers
             return View(clientes);
         }
 
+        public async Task<IActionResult> Editar(int Id) 
+        {
+            var clientes = await _clienteService.ObterClientesAsync();
+            var cliente = clientes.FirstOrDefault(x => x.Id == Id);
+
+            if (cliente == null) return NotFound();
+
+            ClienteModel clienteModel = new ClienteModel();
+
+            clienteModel = ClasseParaModelo(cliente);
+
+            return View(clienteModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(ClienteModel pCliente)
+        {
+            if (!ModelState.IsValid) return View(pCliente);
+
+            Cliente cliente = ModeloParaClasse(pCliente);
+
+            await _clienteService.AtualizaCliente(cliente);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private ClienteModel ClasseParaModelo(Cliente cliente) 
         {
             return new ClienteModel
+            {
+                Id = cliente.Id,
+                Nome = cliente.Nome,
+                Email = cliente.Email
+            };
+        }
+
+        private Cliente ModeloParaClasse(ClienteModel cliente)
+        {
+            return new Cliente
             {
                 Id = cliente.Id,
                 Nome = cliente.Nome,
