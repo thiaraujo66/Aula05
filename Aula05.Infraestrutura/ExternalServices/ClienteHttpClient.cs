@@ -21,5 +21,20 @@ namespace Aula05.Infraestrutura.ExternalServices
         {
             await _httpClient.PutAsJsonAsync($"https://localhost:44390/api/Cliente/{cliente.Id}", cliente);
         }
+
+        public async Task<Cliente> ObterClienteAsync(int id) 
+        {
+            return await _httpClient.GetFromJsonAsync<Cliente>($"https://localhost:44390/api/Cliente/{id}") ?? new Cliente();
+        }
+
+        public async Task ExcluirClienteAsync(int id) 
+        {
+            await _httpClient.DeleteAsync($"https://localhost:44390/api/Cliente/{id}");
+        }
+
+        public async Task CriarClienteAsync(Cliente cliente) 
+        {
+            await _httpClient.PostAsJsonAsync($"https://localhost:44390/api/Cliente", cliente);
+        }
     }
 }

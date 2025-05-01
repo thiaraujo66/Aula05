@@ -6,5 +6,8 @@ namespace Aula05.Application.Contratos
     {
         Task<List<Cliente>> ObterClientesAsync();
         Task AtualizaCliente(Cliente cliente);
+        Task<Cliente> ObterClienteAsync(int id);
+        Task CriarClienteAsync(Cliente cliente);
+        Task ExcluirClienteAsync(int id);
     }
 }
